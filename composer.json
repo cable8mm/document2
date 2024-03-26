@@ -1,30 +1,47 @@
 {
-    "name": "laravel-zero/laravel-zero",
-    "description": "The Laravel Zero Framework.",
-    "keywords": ["framework", "laravel", "laravel zero", "console", "cli"],
-    "homepage": "https://laravel-zero.com",
+    "name": "cable8mm/document2",
+    "description": "The Document2 is to generate Laravel style documents to static website.",
+    "keywords": [
+        "document",
+        "generator",
+        "markdown",
+        "console",
+        "cli"
+    ],
+    "homepage": "https://github.com/cable8mm/document2",
     "type": "project",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/laravel-zero/laravel-zero/issues",
-        "source": "https://github.com/laravel-zero/laravel-zero"
+        "issues": "https://github.com/cable8mm/document2/issues",
+        "source": "https://github.com/cable8mm/document2"
     },
     "authors": [
         {
-            "name": "Nuno Maduro",
-            "email": "enunomaduro@gmail.com"
+            "name": "Samgu Lee",
+            "email": "cable8mm@gmail.com"
         }
     ],
     "require": {
         "php": "^8.1",
+        "illuminate/view": "^10.0",
+        "intonate/tinker-zero": "^1.2",
         "laravel-zero/framework": "^10.2",
-        "nunomaduro/termwind": "^1.15.1"
+        "laravel/unfenced": "dev-main",
+        "nunomaduro/termwind": "^1.15.1",
+        "symfony/dom-crawler": "^7.0",
+        "torchlight/torchlight-commonmark": "^0.5.5"
     },
     "require-dev": {
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.0",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^2.22"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:laravel-labs/unfenced.git"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",
@@ -47,5 +64,12 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["application"]
+    "bin": [
+        "application"
+    ],
+    "scripts": {
+        "test": "./vendor/bin/pest",
+        "lint": "./vendor/bin/pint",
+        "inspect": "./vendor/bin/pint --test"
+    }
 }
