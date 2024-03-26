@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'Application',
+    'name' => 'Document2',
 
     /*
     |--------------------------------------------------------------------------
@@ -68,6 +68,9 @@ return [
 
     'providers' => [
         App\Providers\AppServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Intonate\TinkerZero\TinkerZeroServiceProvider::class,
     ],
 
 ];

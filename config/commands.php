@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
+    'default' => \App\Commands\DefaultCommand::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     */
 
     'remove' => [
-        // ..
+        Intonate\TinkerZero\TinkerZeroServiceProvider::class,
     ],
 
 ];
