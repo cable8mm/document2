@@ -17,5 +17,5 @@ CCC';
 
     expect(
         (new NavigationReplacer('replace'))->run($html)
-    )->toBeString($expected);
+    )->toBe($expected);
 });

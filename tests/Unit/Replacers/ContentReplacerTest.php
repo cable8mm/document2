@@ -17,5 +17,5 @@ CCC';
 
     expect(
         (new ContentReplacer('replace'))->run($html)
-    )->toBeString($expected);
+    )->toBe($expected);
 });
