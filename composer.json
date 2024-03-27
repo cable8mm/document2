@@ -28,7 +28,7 @@
         "laravel-zero/framework": "^10.2",
         "laravel/unfenced": "dev-main",
         "nunomaduro/termwind": "^1.15.1",
-        "symfony/dom-crawler": "^7.0",
+        "symfony/dom-crawler": "^6.0|^7.0",
         "torchlight/torchlight-commonmark": "^0.5.5"
     },
     "require-dev": {
