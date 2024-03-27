@@ -16,6 +16,6 @@ final class GithubFlavoredMarkdownExtension implements ExtensionInterface
         $environment->addExtension(new AutolinkExtension());
         $environment->addExtension(new StrikethroughExtension());
         $environment->addExtension(new TableExtension());
-        $environment->addExtension(new TaskListExtension())  ;
+        $environment->addExtension(new TaskListExtension());
     }
 }
