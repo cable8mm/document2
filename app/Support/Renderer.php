@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Support;
 
 use App\Contracts\RendererInterface;
 use App\Replacers\Replacer;
@@ -50,10 +50,12 @@ class Renderer implements RendererInterface
      */
     public function render(): string
     {
-        /** @var \App\Replacers\Replacer $replacer */
-        foreach ($this->replacers as $replacer) {
-            assert($replacer instanceof Replacer);
-            $this->html = $replacer->run($this->html);
+        if (! empty($this->replacers)) {
+            /** @var \App\Replacers\Replacer $replacer */
+            foreach ($this->replacers as $replacer) {
+                assert($replacer instanceof Replacer);
+                $this->html = $replacer->run($this->html);
+            }
         }
 
         return $this->html;

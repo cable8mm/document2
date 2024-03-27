@@ -2,65 +2,59 @@
 
 namespace App;
 
-use App\Markdown\GithubFlavoredMarkdownConverter;
-use App\Replacers\ContentReplacer;
-use App\Replacers\NavigationReplacer;
-use App\Replacers\VersionReplacer;
+use App\Screen\ContentScreen;
+use App\Screen\NavigationScreen;
+use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Page
 {
-    public string $title;
+    public NavigationScreen $navigationScreen;
 
-    public string $content;
+    public ContentScreen $contentScreen;
+
+    public string $title;
 
     public array $versions;
 
-    public string $navigation;
-
     public string $canonical;
 
-    private string $html;
-
-    private Renderer $renderer;
-
     public function __construct(
-        private string $md,
-        private string $version,
-        private string $navigationMd,
-        private string $htmlPath
+        protected string $navigationMd,
+        protected string $contentMd,
+        protected string $version
     ) {
-        assert(! empty($navigationMd));
-        $this->navigation = (new GithubFlavoredMarkdownConverter())->convert($navigationMd);
+        $this->contentScreen = new ContentScreen($contentMd, $version);
 
-        assert(! empty($md));
-        $this->content = (new GithubFlavoredMarkdownConverter())->convert($md);
+        $this->navigationScreen = new NavigationScreen($navigationMd);
 
-        $this->title = (new Crawler($this->content))->filterXPath('//h1')->text();
+        $this->title = (new Crawler($this->contentScreen->render()))->filterXPath('//h1')->text();
 
         $this->versions = Document2::getDocVersions();
-
-        $this->renderer = (new Renderer())->register([
-            new NavigationReplacer($this->navigation),
-            new ContentReplacer($this->content),
-            new VersionReplacer($this->version),
-        ]);
     }
 
-    public function render()
+    public function filename(): string
     {
-        return $this->renderer->html($this->content)->render();
+        return Str::of($this->title)->kebab();
     }
 
-    /**
-     * Replace the version place-holder in links.
-     *
-     * @param  string  $version
-     * @param  string  $content
-     * @return string
-     */
-    public static function replaceLinks($version, $content)
+    public function title(): string
     {
-        return str_replace('%7B%7Bversion%7D%7D', $version, $content);
+        return $this->title;
+    }
+
+    public function navigation(): string
+    {
+        return $this->navigationScreen->render();
+    }
+
+    public function content(): string
+    {
+        return $this->contentScreen->render();
+    }
+
+    public function version(): string
+    {
+        return $this->version;
     }
 }

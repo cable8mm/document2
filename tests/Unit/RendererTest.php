@@ -1,8 +1,8 @@
 <?php
 
-use App\Renderer;
 use App\Replacers\ContentReplacer;
 use App\Replacers\NavigationReplacer;
+use App\Support\Renderer;
 
 test('example', function () {
     $html = '
