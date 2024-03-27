@@ -11,12 +11,12 @@ test('get index', function () {
     );
 
     expect(
-        $document2->getIndex('10.x')
+        $document2->getIndex('20.x')
     )->toBeString();
 });
 
 test('get index array', function () {
-    $files = app(Document2::class)->indexArray('10.x');
+    $files = app(Document2::class)->indexArray('20.x');
 
     expect(
         $files
@@ -28,7 +28,7 @@ it('get page', function () {
     $document = app(Document2::class);
 
     expect(
-        $document->get('installation', '10.x')
+        $document->get('installation', '20.x')
     )->toBeString();
 });
 
@@ -40,6 +40,6 @@ test('create Document2 instance', function () {
     );
 
     expect(
-        $document2->getIndex('10.x')
+        $document2->getIndex('20.x')
     )->toBeString();
 });

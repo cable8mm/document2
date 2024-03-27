@@ -4,14 +4,14 @@ use App\Page;
 use Illuminate\Support\Facades\File;
 
 test('Page can render csrf page', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'csrf.md');
-    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'testing.md');
+    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
         'csrf',
         $navigationMd,
         $contentMd,
-        '10.x'
+        '20.x'
     );
 
     expect(
@@ -19,31 +19,31 @@ test('Page can render csrf page', function () {
     )->toContain('csrf');
 });
 
-test('Page can render dusk page', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'dusk.md');
-    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
+test('Page can render valet page', function () {
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'valet.md');
+    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
-        'dusk',
+        'valet',
         $navigationMd,
         $contentMd,
-        '10.x'
+        '20.x'
     );
 
     expect(
         $page->content()
-    )->toContain('Dusk');
+    )->toContain('Valet');
 });
 
 test('Page can get filename', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'eloquent.md');
-    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'testing.md');
+    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
         'eloquent',
         $navigationMd,
         $contentMd,
-        '10.x'
+        '20.x'
     );
 
     expect(
@@ -52,33 +52,33 @@ test('Page can get filename', function () {
 });
 
 test('Page can get title', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'blade.md');
-    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'valet.md');
+    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
-        'blade',
+        'valet',
         $navigationMd,
         $contentMd,
-        '10.x'
+        '20.x'
     );
 
     expect(
         $page->title()
-    )->toContain('Blade');
+    )->toContain('Valet');
 });
 
 test('Page can get version', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'deployment.md');
-    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'valet.md');
+    $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'20.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
         'deployment',
         $navigationMd,
         $contentMd,
-        '10.x'
+        '20.x'
     );
 
     expect(
         $page->version()
-    )->toBe('10.x');
+    )->toBe('20.x');
 });

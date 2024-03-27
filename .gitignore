@@ -3,7 +3,6 @@
 /.vscode
 /.vagrant
 .phpunit.result.cache
-/docs
 /composer.lock
 .env
 /coposer.lock

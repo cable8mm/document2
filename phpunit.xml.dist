@@ -24,6 +24,6 @@
         <env name="DOC_PATH" value="docs" />
         <env name="TEMPLATE_PATH" value="tests/Fixtures/docs" />
         <env name="PUBLISH_PATH" value="public/docs" />
-        <env name="DEFAULT_VERSION" value="10.x" />
+        <env name="DEFAULT_VERSION" value="20.x" />
     </php>
 </phpunit>

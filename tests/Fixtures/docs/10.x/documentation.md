@@ -1,5 +1,0 @@
-- ## Section One
-  - [First Page](/docs/first-page)
-  - [Second Page](/docs/second-page)
-- ## Section Two
-  - [Third Page](/docs/second-page)
