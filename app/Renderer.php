@@ -20,8 +20,15 @@ class Renderer implements RendererInterface
      * @param  string  $html  the original html string
      */
     public function __construct(
-        protected string $html
+        protected ?string $html = null
     ) {
+    }
+
+    public function html(string $html): static
+    {
+        $this->html = $html;
+
+        return $this;
     }
 
     /**
