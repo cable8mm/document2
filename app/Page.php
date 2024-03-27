@@ -4,7 +4,6 @@ namespace App;
 
 use App\Screen\ContentScreen;
 use App\Screen\NavigationScreen;
-use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 class Page
@@ -20,6 +19,7 @@ class Page
     public string $canonical;
 
     public function __construct(
+        protected string $filename,
         protected string $navigationMd,
         protected string $contentMd,
         protected string $version
@@ -35,7 +35,7 @@ class Page
 
     public function filename(): string
     {
-        return Str::of($this->title)->kebab();
+        return $this->filename;
     }
 
     public function title(): string

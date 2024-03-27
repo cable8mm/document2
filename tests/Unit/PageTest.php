@@ -3,11 +3,12 @@
 use App\Page;
 use Illuminate\Support\Facades\File;
 
-test('Page can render first page', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'first-page.md');
+test('Page can render csrf page', function () {
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'csrf.md');
     $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
+        'csrf',
         $navigationMd,
         $contentMd,
         '10.x'
@@ -15,14 +16,15 @@ test('Page can render first page', function () {
 
     expect(
         $page->navigation()
-    )->toContain('First Page');
+    )->toContain('csrf');
 });
 
-test('Page can render second page', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'second-page.md');
+test('Page can render dusk page', function () {
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'dusk.md');
     $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
+        'dusk',
         $navigationMd,
         $contentMd,
         '10.x'
@@ -30,14 +32,15 @@ test('Page can render second page', function () {
 
     expect(
         $page->content()
-    )->toContain('Second Page');
+    )->toContain('Dusk');
 });
 
 test('Page can get filename', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'second-page.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'eloquent.md');
     $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
+        'eloquent',
         $navigationMd,
         $contentMd,
         '10.x'
@@ -45,14 +48,15 @@ test('Page can get filename', function () {
 
     expect(
         $page->filename()
-    )->toContain('second-page');
+    )->toContain('eloquent');
 });
 
 test('Page can get title', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'second-page.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'blade.md');
     $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
+        'blade',
         $navigationMd,
         $contentMd,
         '10.x'
@@ -60,14 +64,15 @@ test('Page can get title', function () {
 
     expect(
         $page->title()
-    )->toContain('Second Page');
+    )->toContain('Blade');
 });
 
 test('Page can get version', function () {
-    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'second-page.md');
+    $contentMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'deployment.md');
     $navigationMd = File::get(getcwd().DIRECTORY_SEPARATOR.$_ENV['DOC_PATH'].DIRECTORY_SEPARATOR.'10.x'.DIRECTORY_SEPARATOR.'documentation.md');
 
     $page = new Page(
+        'deployment',
         $navigationMd,
         $contentMd,
         '10.x'

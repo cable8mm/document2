@@ -4,6 +4,9 @@ namespace App\Actions;
 
 use App\Contracts\ActionInterface;
 use App\Page;
+use App\Replacers\NavigationReplacer;
+use App\Replacers\VersionReplacer;
+use App\Support\Renderer;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -11,9 +14,11 @@ use Illuminate\Support\Facades\File;
  *
  * @example (new PublishAction('/path/to/blueprint/index.html', '/path/to/save', Page instance))
  */
-class PublishAction implements ActionInterface
+class PublishDocAction implements ActionInterface
 {
-    private string $html;
+    protected string $html;
+
+    protected Renderer $renderer;
 
     /**
      * Constructor
@@ -27,6 +32,10 @@ class PublishAction implements ActionInterface
         protected ?array $pages = null
     ) {
         $this->html = File::get($blueprint);
+
+        $this->renderer = new Renderer(
+            File::get($blueprint)
+        );
     }
 
     /**
@@ -48,14 +57,17 @@ class PublishAction implements ActionInterface
      */
     public function execute(): int|bool
     {
-        File::ensureDirectoryExists($this->savePath);
-
         assert(! empty($this->pages));
 
         foreach ($this->pages as $page) {
+            File::ensureDirectoryExists($this->savePath.DIRECTORY_SEPARATOR.$page->version().DIRECTORY_SEPARATOR.$page->filename());
+
             if (File::put(
-                $this->savePath.DIRECTORY_SEPARATOR.$page->filename().DIRECTORY_SEPARATOR.'index.html',
-                $page->content()
+                $this->savePath.DIRECTORY_SEPARATOR.$page->version().DIRECTORY_SEPARATOR.$page->filename().DIRECTORY_SEPARATOR.'index.html',
+                $this->renderer->register([
+                    new NavigationReplacer($page->navigation()),
+                    new VersionReplacer($page->content()),
+                ])->render()
             ) === false) {
                 return false;
             }

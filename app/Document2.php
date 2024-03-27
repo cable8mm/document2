@@ -16,9 +16,14 @@ class Document2
     protected $files;
 
     /**
-     * The path for documents(markdown files) root.
+     * $var string The path for documents(markdown files) root.
      */
     protected string $path;
+
+    /**
+     * @var string The default version to be redirected to front page
+     */
+    protected string $defaultVersion;
 
     public string $blueprint;
 
@@ -28,7 +33,7 @@ class Document2
      * @param  string  $path  The path for documents(markdown files) root.
      * @return void
      */
-    public function __construct(Filesystem $files, string $path)
+    public function __construct(Filesystem $files, string $path, string $defaultVersion)
     {
         $this->files = $files;
         $this->path = $path;
@@ -87,9 +92,11 @@ class Document2
             return [];
         }
 
+        $collection = collect(explode(PHP_EOL, $this->replaceLinks($version, $this->files->get($path))));
+
         return [
             'pages' => collect(explode(PHP_EOL, $this->replaceLinks($version, $this->files->get($path))))
-                ->filter(fn ($line) => Str::contains($line, '/'.$this->path.'/{{version}}/'))
+                ->filter(fn ($line) => Str::contains($line, '/'.$this->path.'/'))
                 ->map(fn ($line) => base_path(Str::of($line)->afterLast('(/')->before(')')->replace('{{version}}', $version)->append('.md')))
                 ->filter(fn ($path) => $this->files->exists($path))
                 ->mapWithKeys(function ($path) {
