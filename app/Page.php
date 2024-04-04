@@ -8,8 +8,6 @@ use App\Contracts\Markdownable;
 use App\Replacers\ContentReplacer;
 use App\Replacers\NavigationReplacer;
 use App\Replacers\VersionReplacer;
-use App\Screen\ContentScreen;
-use App\Screen\NavigationScreen;
 use App\Support\Path;
 use App\Types\HtmlString;
 use App\Types\NavCollection;
@@ -18,10 +16,6 @@ use Stringable;
 
 class Page implements Htmlable, Stringable
 {
-    public NavigationScreen $navigationScreen;
-
-    public ContentScreen $contentScreen;
-
     public string $title;
 
     public array $versions;

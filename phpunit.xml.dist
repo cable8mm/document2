@@ -21,9 +21,9 @@
     </source>
 
     <php>
-        <env name="DOC_PATH" value="docs" />
-        <env name="TEMPLATE_PATH" value="tests/Fixtures/docs" />
-        <env name="PUBLISH_PATH" value="public" />
+        <env name="DOC_PATH" value="tests/Fixtures/docs" />
+        <env name="TEMPLATE_PATH" value="templates" />
+        <env name="PUBLISH_PATH" value="tests/Fixtures/public" />
         <env name="DEFAULT_VERSION" value="20.x" />
     </php>
 </phpunit>
