@@ -10,7 +10,7 @@ final class NavigationReplacer extends Replacer
     public function run(string $original): string
     {
         return preg_replace(
-            '/<!-- doc.navigation.start -->.+<!-- doc.navigation.end -->/si',
+            '/<!-- doc.navigator.start -->.+<!-- doc.navigator.end -->/si',
             $this->replace,
             $original
         );
