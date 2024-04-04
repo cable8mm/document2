@@ -5,6 +5,11 @@ namespace App\Commands;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
+/**
+ * Clean template files for not templates folder but dest folder
+ *
+ * @example php document2 clean
+ */
 class CleanCommand extends Command
 {
     /**
@@ -30,15 +35,22 @@ class CleanCommand extends Command
 
         $excludes = ['.gitignore'];
 
-        array_map(function ($location) use ($excludes) {
-            if (! in_array(basename($location), $excludes)) {
-                if (File::deleteDirectory($location)) {
-                    $this->info($location.' was deleted');
-                } else {
-                    $this->error($location.' was failed to be deleted');
+        $path = public_path();
+
+        collect(glob($path.DIRECTORY_SEPARATOR.'*'))
+            ->filter(function ($item) use ($excludes) {
+                foreach ($excludes as $exclude) {
+                    if (strpos($item, $exclude) !== false) {
+                        return false;
+                    }
                 }
-            }
-        }, array_filter((array) glob($path.DIRECTORY_SEPARATOR.'*')));
+
+                return true;
+            })
+            ->map(function ($item) {
+                $result = File::isFile($item) ? File::delete($item) : File::deleteDirectory($item);
+                $result ? $this->info($item.' was deleted') : $this->error($item.' was failed to be deleted');
+            });
 
         $this->info('Published files cleaned.');
     }

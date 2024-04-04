@@ -7,3 +7,7 @@
 .env
 /coposer.lock
 /phpunit.xml
+/build
+/cache
+doctum.php
+test.php

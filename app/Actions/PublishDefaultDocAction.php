@@ -38,19 +38,19 @@ class PublishDefaultDocAction implements ActionInterface
 
         return File::put(
             $this->publishPath.DIRECTORY_SEPARATOR.$this->version.DIRECTORY_SEPARATOR.'index.html',
-            '
-            <!DOCTYPE html>
-            <html>
-              <head>
-                    <title>Redirecting...</title>
-                        <meta charset="UTF-8" />
-                        <meta http-equiv="refresh" content="0; URL=./'.$this->version.'/'.$this->document.'" />
-                </head>
-                <body>
-                    <p>This page has been moved. If you are not redirected within 3 seconds, click <a href="./'.$this->version.'/'.$this->document.'">here</a> to go to the correct document.</p>
-                </body>
-            </html>
-            '
+            <<< 'NOWDOC'
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redirecting...</title>
+            <meta charset="UTF-8" />
+            <meta http-equiv="refresh" content="0; URL=./'.$this->version.'/'.$this->document.'" />
+    </head>
+    <body>
+        <p>This page has been moved. If you are not redirected within 3 seconds, click <a href="./'.$this->version.'/'.$this->document.'">here</a> to go to the correct document.</p>
+    </body>
+</html>
+NOWDOC
         );
     }
 }

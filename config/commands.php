@@ -1,5 +1,9 @@
 <?php
 
+use App\Commands\CleanCommand;
+use App\Commands\DefaultCommand;
+use App\Commands\TemplateCommand;
+
 return [
 
     /*
@@ -40,7 +44,9 @@ return [
     */
 
     'add' => [
-        // ..
+        CleanCommand::class,
+        DefaultCommand::class,
+        TemplateCommand::class,
     ],
 
     /*

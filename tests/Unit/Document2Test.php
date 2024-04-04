@@ -1,45 +1,22 @@
 <?php
 
 use App\Document2;
-use Illuminate\Filesystem\Filesystem;
+use App\Drivers\LaravelDriver;
 
-test('get index', function () {
-    $document2 = new Document2(
-        resolve(Filesystem::class),
-        $_ENV['DOC_PATH'],
-        $_ENV['DEFAULT_VERSION']
-    );
+it('create instance', function () {
+    $driver = new LaravelDriver();
 
     expect(
-        $document2->getIndex('20.x')
-    )->toBeString();
+        new Document2($driver)
+    )->toBeInstanceOf(Document2::class);
 });
 
-test('get index array', function () {
-    $files = app(Document2::class)->indexArray('20.x');
+it('save', function () {
+    $driver = new LaravelDriver();
+
+    (new Document2($driver))->save();
 
     expect(
-        $files
-    )->toBeIterable();
-});
-
-it('get page', function () {
-    /** @var \App\Documentation $document */
-    $document = app(Document2::class);
-
-    expect(
-        $document->get('installation', '20.x')
-    )->toBeString();
-});
-
-test('create Document2 instance', function () {
-    $document2 = new Document2(
-        new Filesystem(),
-        $_ENV['DOC_PATH'],
-        $_ENV['DEFAULT_VERSION']
-    );
-
-    expect(
-        $document2->getIndex('20.x')
-    )->toBeString();
+        glob(public_path().'*')
+    )->toBeArray();
 });
