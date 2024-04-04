@@ -37,11 +37,11 @@ it('run version', function () {
 it('run toHtml', function () {
     $page = new Page('artisan.md', '10.x', new LaravelDriver());
 
-    expect($page->toHtml())->toBeString()->dump();
+    expect($page->toHtml())->toBeString();
 });
 
 it('run toFile', function () {
     $page = new Page('artisan.md', '10.x', new LaravelDriver());
 
-    expect($page->toFile())->toBeInt()->dump();
+    expect($page->toFile())->toBeInt();
 });

@@ -5,6 +5,12 @@ use App\Enums\NavEnum;
 use App\Types\Nav;
 use App\Types\NavCollection;
 
+it('creates a new instance', function () {
+    $driver = new LaravelDriver();
+
+    expect($driver)->toBeInstanceOf(LaravelDriver::class);
+});
+
 it('run getNavs', function () {
     expect(
         LaravelDriver::getNavs('10.x')

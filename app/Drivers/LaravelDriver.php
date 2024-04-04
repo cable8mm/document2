@@ -75,11 +75,11 @@ class LaravelDriver extends Driver
 
         preg_match('/#(.+)/m', $markdown, $matched);
 
-        $title = trim($matched[1]);
+        $title = $matched[1] ?? '';
 
         return [
-            $title,
-            new MarkdownString(File::get(self::getDocumentRoot($path.DIRECTORY_SEPARATOR.$filename))),
+            trim($title),
+            new MarkdownString($markdown),
         ];
     }
 

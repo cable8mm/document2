@@ -3,9 +3,10 @@
 namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
+/**
+ * Copy
+ */
 class DefaultCommand extends Command
 {
     /**
@@ -23,31 +24,9 @@ class DefaultCommand extends Command
     protected $description = 'Publish documentation to the given path';
 
     /**
-     * The configuration of the command.
-     *
-     * @return void
-     */
-    protected function configure()
-    {
-        parent::configure();
-
-        $this
-            ->setDefinition(
-                [
-                    new InputArgument('path', InputArgument::IS_ARRAY, 'The path to document2', [(string) getcwd()]),
-                    new InputOption('config', '', InputOption::VALUE_REQUIRED, 'The configuration that should be used'),
-                    new InputOption('no-config', '', InputOption::VALUE_NONE, 'Disable loading any configuration file'),
-                    new InputOption('theme', '', InputOption::VALUE_REQUIRED, 'The output theme that should be used'),
-                ]
-            );
-    }
-
-    /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
 
     }
