@@ -2,14 +2,23 @@
 
 return [
 
-    'doc_path' => env('DOC_PATH', getcwd().DIRECTORY_SEPARATOR.'docs'),
+    'doc_path' => env('DOC_PATH', 'docs'),
 
-    'publish_path' => env('PUBLISH_PATH', getcwd().DIRECTORY_SEPARATOR.'public'),
+    'template' => env('TEMPLATE', 'laravel'),
+
+    'publish_path' => env('PUBLISH_PATH', 'public'),
 
     'default_version' => env('DEFAULT_VERSION'),
 
     'default_doc' => env('DEFAULT_DOC', 'installation'),
 
-    'versions' => [],
+    'versions' => [
+        '20.x' => '20.x',
+        '10.x' => '10.x',
+    ],
+
+    'excludes' => [
+
+    ]
 
 ];

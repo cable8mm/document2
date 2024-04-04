@@ -2,11 +2,21 @@
 
 namespace App;
 
+use App\Contracts\DriverInterface;
+use App\Contracts\Htmlable;
+use App\Contracts\Markdownable;
+use App\Replacers\ContentReplacer;
+use App\Replacers\NavigationReplacer;
+use App\Replacers\VersionReplacer;
 use App\Screen\ContentScreen;
 use App\Screen\NavigationScreen;
-use Symfony\Component\DomCrawler\Crawler;
+use App\Support\Path;
+use App\Types\HtmlString;
+use App\Types\NavCollection;
+use Illuminate\Support\Facades\File;
+use Stringable;
 
-class Page
+class Page implements Htmlable, Stringable
 {
     public NavigationScreen $navigationScreen;
 
@@ -18,19 +28,26 @@ class Page
 
     public string $canonical;
 
+    /**
+     * @var \App\Types\NavCollection Documentation navigation collection
+     */
+    protected NavCollection $navCollection;
+
+    /**
+     * @var \App\Contracts\Markdownable Documentation file content
+     */
+    protected Markdownable $content;
+
     public function __construct(
         protected string $filename,
-        protected string $navigationMd,
-        protected string $contentMd,
-        protected string $version
+        protected string $version,
+        protected ?DriverInterface $driver = null
     ) {
-        $this->contentScreen = new ContentScreen($contentMd, $version);
+        $this->navCollection = $this->driver::getNavs($version);
 
-        $this->navigationScreen = new NavigationScreen($navigationMd);
+        [$this->title, $this->content] = $this->driver::getDocument($version, $filename);
 
-        $this->title = (new Crawler($this->contentScreen->render()))->filterXPath('//h1')->text();
-
-        $this->versions = Document2::getDocVersions();
+        $this->versions = $this->driver::getVersions();
     }
 
     public function filename(): string
@@ -43,18 +60,49 @@ class Page
         return $this->title;
     }
 
-    public function navigation(): string
+    public function navigation(): Htmlable
     {
-        return $this->navigationScreen->render();
-    }
-
-    public function content(): string
-    {
-        return $this->contentScreen->render();
+        return $this->driver::getNavHtml($this->navCollection);
     }
 
     public function version(): string
     {
         return $this->version;
+    }
+
+    public function toHtml(): string
+    {
+        $html = $this->content->toHtml();
+
+        $location = Path::template(
+            config('document2.template')
+        );
+
+        $template = new HtmlString(File::get($location));
+
+        return $template->register([
+            new NavigationReplacer((string) $this->navigation()),
+            new VersionReplacer($this->version),
+            new ContentReplacer($html),
+        ])->render();
+    }
+
+    /**
+     * Save the document to the filesystem
+     *
+     * @return int|bool The methods return the number of bytes written to the filesystem or false on failure
+     */
+    public function toFile(): int|bool
+    {
+        $location = Path::publish($this->version, $this->filename);
+
+        File::ensureDirectoryExists($location->toDir());
+
+        return File::put($location, $this->toHtml());
+    }
+
+    public function __toString()
+    {
+        return $this->toHtml();
     }
 }

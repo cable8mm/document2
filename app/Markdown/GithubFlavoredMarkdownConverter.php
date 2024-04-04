@@ -12,6 +12,8 @@ use Torchlight\Commonmark\V2\TorchlightExtension;
 
 /**
  * Converts GitHub Flavored Markdown to HTML.
+ *
+ * @example (new GithubFlavoredMarkdownConverter())->convert($md);
  */
 class GithubFlavoredMarkdownConverter extends MarkdownConverter
 {
