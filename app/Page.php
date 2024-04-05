@@ -6,6 +6,7 @@ use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Markdownable;
 use App\Replacers\ContentReplacer;
+use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
 use App\Replacers\VersionReplacer;
 use App\Support\Path;
@@ -78,6 +79,7 @@ class Page implements Htmlable, Stringable
             new NavigationReplacer((string) $this->navigation()),
             new VersionReplacer($this->version),
             new ContentReplacer($html),
+            new DocsLinkReplacer(''),
         ])->render();
     }
 
@@ -92,7 +94,7 @@ class Page implements Htmlable, Stringable
 
         File::ensureDirectoryExists($location->toDir());
 
-        return is_bool(File::put($location, $this->toHtml())) ? false : $location;
+        return is_bool(File::put($location->toLocation(), $this->toHtml())) ? false : $location;
     }
 
     public function __toString()

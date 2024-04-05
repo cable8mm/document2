@@ -26,5 +26,5 @@ it('should run count method', function () {
         (new Document2(
             new LaravelDriver
         ))->count()
-    )->toBe(11)->dump();
+    )->toBe(11);
 });

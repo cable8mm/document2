@@ -32,7 +32,15 @@ class PathString implements Pathable, Stringable
      */
     public function toDir(): string
     {
-        return dirname($this->path);
+        return preg_replace('/\.[^\.]+$/', '', $this->path);
+    }
+
+    /**
+     * Get published location.
+     */
+    public function toLocation(): string
+    {
+        return $this->toDir().DIRECTORY_SEPARATOR.'index.html';
     }
 
     /**
