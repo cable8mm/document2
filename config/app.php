@@ -71,6 +71,7 @@ return [
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Intonate\TinkerZero\TinkerZeroServiceProvider::class,
+        Torchlight\TorchlightServiceProvider::class,
     ],
 
 ];
