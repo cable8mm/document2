@@ -37,6 +37,13 @@
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^2.22"
     },
+    "suggest": {
+        "laravel-zero/framework": "Required to application framework.",
+        "torchlight/torchlight-commonmark": "Required to highlight source code.",
+        "symfony/dom-crawler": "Required to get DOM contents.",
+        "laravel/unfenced": "Required to view tabs of source code block.",
+        "intonate/tinker-zero": "Required to debug using tinkerwell."
+    },
     "repositories": [
         {
             "type": "vcs",
