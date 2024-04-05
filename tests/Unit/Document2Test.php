@@ -20,3 +20,11 @@ it('save', function () {
         glob(public_path().'*')
     )->toBeArray();
 });
+
+it('should run count method', function () {
+    expect(
+        (new Document2(
+            new LaravelDriver
+        ))->count()
+    )->toBe(11);
+});

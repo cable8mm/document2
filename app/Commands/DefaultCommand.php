@@ -2,6 +2,8 @@
 
 namespace App\Commands;
 
+use App\Document2;
+use App\Drivers\LaravelDriver;
 use LaravelZero\Framework\Commands\Command;
 
 /**
@@ -28,6 +30,14 @@ class DefaultCommand extends Command
      */
     public function handle(): void
     {
+        foreach ((new Document2(
+            new LaravelDriver
+        ))->save() as $filename) {
+            $filename === false
+                ? $this->error('Published '.$filename.' documents failed.')
+                : $this->info('Published '.$filename.' documents.');
+        }
 
+        $this->info('Published documents.');
     }
 }

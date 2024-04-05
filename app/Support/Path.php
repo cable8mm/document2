@@ -14,7 +14,7 @@ class Path
 
     public static function publish(string $path, string $filename): Pathable
     {
-        $filename = preg_replace('/\.[^\.]+$/', '.html', $filename);
+        $filename = preg_replace('/\.[^\.]+$/', '/index.html', $filename);
 
         return new PathString(base_path(config('document2.publish_path').DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$filename));
     }

@@ -5,9 +5,9 @@ use App\Replacers\NavigationReplacer;
 test('NavigationReplacer', function () {
     $html = '
 AAA
-<!-- doc.navigation.start -->
+<!-- doc.navigator.start -->
 BBB
-<!-- doc.navigation.end -->
+<!-- doc.navigator.end -->
 CCC';
 
     $expected = '

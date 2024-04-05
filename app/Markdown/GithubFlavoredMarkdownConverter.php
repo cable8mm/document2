@@ -9,6 +9,7 @@ use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\MarkdownConverter;
 use Torchlight\Commonmark\V2\TorchlightExtension;
+use Torchlight\Torchlight;
 
 /**
  * Converts GitHub Flavored Markdown to HTML.
@@ -29,7 +30,10 @@ class GithubFlavoredMarkdownConverter extends MarkdownConverter
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new UnfencedExtension());
         $environment->addExtension(new AttributesExtension());
-        // $environment->addExtension(new TorchlightExtension());
+
+        if (Torchlight::config('token')) {
+            $environment->addExtension(new TorchlightExtension());
+        }
 
         parent::__construct($environment);
     }

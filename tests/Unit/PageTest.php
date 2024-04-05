@@ -43,5 +43,5 @@ it('run toHtml', function () {
 it('run toFile', function () {
     $page = new Page('artisan.md', '10.x', new LaravelDriver());
 
-    expect($page->toFile())->toBeInt();
+    expect($page->toFile())->toContain('artisan/index.html');
 });

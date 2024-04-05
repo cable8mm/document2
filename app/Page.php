@@ -6,6 +6,7 @@ use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Markdownable;
 use App\Replacers\ContentReplacer;
+use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
 use App\Replacers\VersionReplacer;
 use App\Support\Path;
@@ -78,21 +79,22 @@ class Page implements Htmlable, Stringable
             new NavigationReplacer((string) $this->navigation()),
             new VersionReplacer($this->version),
             new ContentReplacer($html),
+            new DocsLinkReplacer(''),
         ])->render();
     }
 
     /**
      * Save the document to the filesystem
      *
-     * @return int|bool The methods return the number of bytes written to the filesystem or false on failure
+     * @return string|bool The methods return the location written to the filesystem or false on failure
      */
-    public function toFile(): int|bool
+    public function toFile(): string|bool
     {
         $location = Path::publish($this->version, $this->filename);
 
         File::ensureDirectoryExists($location->toDir());
 
-        return File::put($location, $this->toHtml());
+        return is_bool(File::put($location->toLocation(), $this->toHtml())) ? false : $location;
     }
 
     public function __toString()
