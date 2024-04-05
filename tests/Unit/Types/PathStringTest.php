@@ -19,3 +19,9 @@ it('run toLocation', function () {
         (new PathString('/Users/cable8mm/Sites/document2/public/10.x/artisan.md'))->toLocation()
     )->toBe('/Users/cable8mm/Sites/document2/public/10.x/artisan/index.html');
 });
+
+it('run toLocation from index.html', function () {
+    expect(
+        (new PathString('/Users/cable8mm/Sites/document2/public/10.x/artisan/index.html'))->toLocation()
+    )->toBe('/Users/cable8mm/Sites/document2/public/10.x/artisan/index.html');
+});
