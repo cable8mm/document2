@@ -10,7 +10,7 @@ use App\Types\PathString;
 
 abstract class Driver implements DriverInterface
 {
-    abstract public static function getNavs(?string $path = null): \App\Types\NavCollection;
+    abstract public static function getNavs(string $path, string $filename): \App\Types\NavCollection;
 
     abstract public static function getNavFile(): string;
 
