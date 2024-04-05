@@ -1,5 +1,15 @@
 # Release Notes
 
+## v0.2.0 - 2024-04-05
+
+### What's Changed
+
+* Include badges by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/9
+* Implement a special view for the selected navigation item by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/10
+* Include suggested contents in `composer.json` by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/11
+
+**Full Changelog**: https://github.com/cable8mm/document2/compare/v0.1.0...v0.2.0
+
 ## v0.1.0 - 2024-04-05
 
 ### What's Changed
