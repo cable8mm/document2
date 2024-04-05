@@ -1,7 +1,13 @@
-# Document2
+# Document2 - Documentation Generator
 
 [![code-style](https://github.com/cable8mm/document2/actions/workflows/code-style.yml/badge.svg)](https://github.com/cable8mm/document2/actions/workflows/code-style.yml)
 [![run-tests](https://github.com/cable8mm/document2/actions/workflows/run-tests.yml/badge.svg)](https://github.com/cable8mm/document2/actions/workflows/run-tests.yml)
+[![Packagist Version](https://img.shields.io/packagist/v/cable8mm/document2)](https://packagist.org/packages/cable8mm/document2)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/cable8mm/document2)](https://packagist.org/packages/cable8mm/document2/stats)
+[![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/cable8mm/document2/php)](https://packagist.org/packages/cable8mm/document2)
+![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/cable8mm/document2/laravel-zero%2Fframework)
+[![Packagist Stars](https://img.shields.io/packagist/stars/cable8mm/document2)](https://github.com/cable8mm/document2/stargazers)
+[![Packagist License](https://img.shields.io/packagist/l/cable8mm/document2)](https://github.com/cable8mm/document2/blob/main/LICENSE.md)
 
 The Document2 is to generate Laravel style documents to static website.
 
