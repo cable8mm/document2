@@ -110,4 +110,20 @@ class Page implements Htmlable, Stringable
     {
         return $this->toHtml();
     }
+
+    /**
+     * Get page to match from filename
+     *
+     * @param  array  $pages  Array of pages
+     * @param  string  $filename  The filename
+     * @return \App\Page|null The method returns \App\Page on success or null if no matching page
+     */
+    public static function getFromFilename(array $pages, string $filename): ?\App\Page
+    {
+        foreach ($pages as $page) {
+            if ($page->filename() === $filename) {
+                return $page;
+            }
+        }
+    }
 }
