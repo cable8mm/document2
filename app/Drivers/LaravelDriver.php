@@ -4,6 +4,7 @@ namespace App\Drivers;
 
 use App\Contracts\Htmlable;
 use App\Enums\NavEnum;
+use App\Support\URL;
 use App\Types\HtmlString;
 use App\Types\MarkdownString;
 use App\Types\Nav;
@@ -30,7 +31,8 @@ class LaravelDriver extends Driver
             return new Nav(
                 $matches[1],
                 NavEnum::Page,
-                $matches[2]
+                link: $matches[2],
+                filename: URL::filenameFromNav($matches[2])
             );
         }
 
@@ -47,7 +49,7 @@ class LaravelDriver extends Driver
     /**
      * {@inheritDoc}
      */
-    public static function getNavs(?string $path = null): \App\Types\NavCollection
+    public static function getNavs(string $path, string $filename): \App\Types\NavCollection
     {
         $documentationMd = File::get(self::getDocumentRoot($path.DIRECTORY_SEPARATOR.self::getNavFile()));
 
@@ -55,7 +57,7 @@ class LaravelDriver extends Driver
             ->filter(fn ($line) => ! preg_match('/^[\s]*?$/', $line))
             ->map(fn ($line) => self::getNav($line));
 
-        return new NavCollection($collect->toArray());
+        return new NavCollection($collect->toArray(), $filename);
     }
 
     /**
@@ -93,15 +95,20 @@ class LaravelDriver extends Driver
     {
         $html = '<div class="docs_sidebar"><ul>'.PHP_EOL;
 
+        /* @var <int, \App\Types\Nav[]> $section */
         foreach ($navCollection->toArray() as $section) {
-            $html .= '<li>'.PHP_EOL;
+            $html .= '<li'
+            .(! empty($section->pages) && self::inSection($section->pages, $navCollection->filename) ? ' class="sub--on"' : '')
+            .'>'.PHP_EOL;
 
             $html .= '<h2>'.$section['section']->title.'</h2>'.PHP_EOL;
 
             $html .= '<ul>'.PHP_EOL;
 
             foreach ($section['pages'] as $nav) {
-                $html .= '<li><a href="'.$nav->link.'">'.$nav->title.'</a></li>'.PHP_EOL;
+                $html .= '<li'
+                .($nav->filename === $navCollection->filename ? ' class="active"' : '')
+                .'><a href="'.$nav->link.'">'.$nav->title.'</a></li>'.PHP_EOL;
             }
 
             $html .= '</ul>'.PHP_EOL;
@@ -112,5 +119,24 @@ class LaravelDriver extends Driver
         $html .= '</ul></div>';
 
         return new HtmlString($html);
+    }
+
+    /**
+     * Whether the filename exists in the section's pages or not
+     *
+     * @param  array  $pages  The pages
+     * @param  string  $filename  The filename
+     * @return bool The method returns true if the filename exists in the section and false otherwise
+     */
+    private static function inSection(array $pages, string $filename): bool
+    {
+        /* @var \App\Types\Nav[] $pages */
+        foreach ($pages as $page) {
+            if ($page->filename === $filename) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

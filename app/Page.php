@@ -41,7 +41,7 @@ class Page implements Htmlable, Stringable
         protected string $version,
         protected ?DriverInterface $driver = null
     ) {
-        $this->navCollection = $this->driver::getNavs($version);
+        $this->navCollection = $this->driver::getNavs($version, $filename);
 
         [$this->title, $this->content] = $this->driver::getDocument($version, $filename);
 

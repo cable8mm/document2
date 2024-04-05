@@ -19,7 +19,7 @@ test('run NavCollection', function () {
         new Nav('Title23', NavEnum::Page, '/docs/title23'),
         new Nav('Title24', NavEnum::Page, '/docs/title24'),
         new Nav('Title25', NavEnum::Page, '/docs/title25'),
-    ]);
+    ], 'title15.md');
 
     expect(
         $navCollection->toArray()

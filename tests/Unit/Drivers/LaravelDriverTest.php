@@ -13,7 +13,7 @@ it('creates a new instance', function () {
 
 it('run getNavs', function () {
     expect(
-        LaravelDriver::getNavs('10.x')
+        LaravelDriver::getNavs('10.x', 'artisan.md')
     )->toBeInstanceOf(NavCollection::class);
 });
 
@@ -51,7 +51,7 @@ it('run getNavHtml', function () {
         new Nav('Title23', NavEnum::Page, '/docs/title23'),
         new Nav('Title24', NavEnum::Page, '/docs/title24'),
         new Nav('Title25', NavEnum::Page, '/docs/title25'),
-    ]);
+    ], 'title15.md');
 
     expect(
         (string) LaravelDriver::getNavHtml($navCollection)

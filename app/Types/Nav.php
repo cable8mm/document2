@@ -13,7 +13,8 @@ class Nav implements Htmlable
     public function __construct(
         public string $title,
         public NavEnum $section,
-        public ?string $link = null
+        public ?string $link = null,
+        public ?string $filename = null
     ) {
 
     }

@@ -16,4 +16,9 @@ class URL
     {
         return preg_replace('/\.[^\/]+$/', '', $published);
     }
+
+    public static function filenameFromNav(string $path): string
+    {
+        return preg_replace('/^.+\/([^\/]+)$/', '\\1', $path).'.md';
+    }
 }

@@ -9,9 +9,11 @@ interface DriverInterface
     /**
      * Get navigation array
      *
+     * @param  string  $path  The version e.g. `10.x`
+     * @param  string  $filename  The filename e.g. `artisan.md`
      * @return : \App\Types\NavCollection The navigation collection
      */
-    public static function getNavs(?string $path = null): \App\Types\NavCollection;
+    public static function getNavs(string $path, string $filename): \App\Types\NavCollection;
 
     /**
      * Get the excluded paths
