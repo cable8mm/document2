@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Contracts\DriverInterface;
+use Generator;
 
 class Document2
 {
@@ -34,15 +35,27 @@ class Document2
 
     /**
      * Save all documents
+     *
+     * @example foreach ((new Document2( new LaravelDriver ))->save() as $filename) { messaging(); }
      */
-    public function save(): void
+    public function save(): Generator
     {
         /** @var array $pages */
         foreach ($this->documents as $pages) {
             /** @var \App\Page $page */
             foreach ($pages as $page) {
-                $page->toFile();
+                yield $page->toFile();
             }
         }
+    }
+
+    /**
+     * Get the count of all pages
+     *
+     * @return int count of all pages
+     */
+    public function count(): int
+    {
+        return count($this->documents, 1) - count($this->documents, 0);
     }
 }

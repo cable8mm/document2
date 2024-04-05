@@ -84,15 +84,15 @@ class Page implements Htmlable, Stringable
     /**
      * Save the document to the filesystem
      *
-     * @return int|bool The methods return the number of bytes written to the filesystem or false on failure
+     * @return string|bool The methods return the location written to the filesystem or false on failure
      */
-    public function toFile(): int|bool
+    public function toFile(): string|bool
     {
         $location = Path::publish($this->version, $this->filename);
 
         File::ensureDirectoryExists($location->toDir());
 
-        return File::put($location, $this->toHtml());
+        return is_bool(File::put($location, $this->toHtml())) ? false : $location;
     }
 
     public function __toString()
