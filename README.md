@@ -9,22 +9,19 @@ We have done our best to create a convenient tool for you all. Take a moment to 
 
 ## Features
 
-- [ ] Generate static website from documentations
-- [ ] Versions are supported
-- [ ] Templates are supported
+- [x] Generate static website from documentations
+- [x] Versions are supported
+- [x] Templates are supported
+- [x] Testing available locally
+- [x] Dark theme is supported
 - [ ] Publish GitHub Pages with actions
-- [ ] Testing available locally
-- [ ] Dark theme is supported
 - [ ] Search is supported
 - [ ] SEO is supported
 
 ## Installation
 
 ```shell
-# composer install cable8mm/document2
-
-git clone https://github.com/cable8mm/document2.git
-# Cloning this repository
+composer install cable8mm/document2
 ```
 
 ## Usage
@@ -47,6 +44,9 @@ Finally, run the following command to generate the static htmls
 ```shell
 ./document2
 # Generate the static html files into the `public` folder
+
+./document2 -d docs -b 7.x -f artisan.md
+# Generate the static html file of directory `docs`, branch `7.x` and filename `artisan.md`
 ```
 
 If Laravel Valet or Laravel Herd has been installed, you can visit https://document2.test.
