@@ -4,11 +4,12 @@ namespace App;
 
 use App\Contracts\DriverInterface;
 use Generator;
+use InvalidArgumentException;
 
 class Document2
 {
     /**
-     * @var array<version:Page[]> The list of pages of the specific version
+     * @var array<version,Page[]> The list of pages of the specific version
      */
     protected array $documents;
 
@@ -29,17 +30,41 @@ class Document2
                 $pages[] = new Page($filename, $version, $this->driver);
             }
 
-            $this->documents[] = $pages;
+            $this->documents[$version] = $pages;
         }
     }
 
     /**
      * Save all documents
      *
+     * @param  string|null  $version  The version e.g. '10.x' or 'master'
+     * @param  string|null  $filename  The name of the file e.g. 'artisan.md'
+     * @return \Generator PHP Generator
+     *
+     * @throws \InvalidArgumentException
+     *
      * @example foreach ((new Document2( new LaravelDriver ))->save() as $filename) { messaging(); }
      */
-    public function save(): Generator
+    public function save(?string $version = null, ?string $filename = null): \Generator
     {
+        assert(
+            (is_null($version) && is_null($filename)) || (! is_null($version) && ! is_null($filename)), new InvalidArgumentException('The version parameter is required')
+        );
+
+        if (! is_null($version) && ! is_null($filename)) {
+            yield Page::getFromFilename($this->documents[$version], $filename)->toFile();
+
+            return;
+        }
+
+        if (! is_null($version)) {
+            foreach ($this->documents[$version] as $page) {
+                yield $page->toFile();
+            }
+
+            return;
+        }
+
         /** @var array $pages */
         foreach ($this->documents as $pages) {
             /** @var \App\Page $page */
