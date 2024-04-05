@@ -18,6 +18,39 @@ We have done our best to create a convenient tool for you all. Take a moment to 
 - [ ] Search is supported
 - [ ] SEO is supported
 
+## Installation
+
+```shell
+# composer install cable8mm/document2
+
+git clone https://github.com/cable8mm/document2.git
+# Cloning this repository
+```
+
+## Usage
+
+Select your template:
+
+```shell
+./document2 template laravel
+```
+
+And clone the documentation files:
+
+```shell
+bin/checkout_latest_docs.sh
+# Import laravel documentations into `docs` folder
+```
+
+Finally, run the following command to generate the static htmls
+
+```shell
+./document2
+# Generate the static html files into the `public` folder
+```
+
+If Laravel Valet or Laravel Herd has been installed, you can visit https://document2.test.
+
 ## Development
 
 ### Create Templates
