@@ -1,5 +1,13 @@
 # Release Notes
 
+## v0.2.1 - 2024-04-05
+
+### What's Changed
+
+* Fix some bugs by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/12
+
+**Full Changelog**: https://github.com/cable8mm/document2/compare/v0.2.0...v0.2.1
+
 ## v0.2.0 - 2024-04-05
 
 ### What's Changed
