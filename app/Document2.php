@@ -48,7 +48,7 @@ class Document2
     public function save(?string $version = null, ?string $filename = null): \Generator
     {
         assert(
-            (is_null($version) && is_null($filename)) || (! is_null($version) && ! is_null($filename)), new InvalidArgumentException('The version parameter is required')
+            (is_null($version) && is_null($filename)) || (! is_null($version)), new InvalidArgumentException('The version parameter is required')
         );
 
         if (! is_null($version) && ! is_null($filename)) {

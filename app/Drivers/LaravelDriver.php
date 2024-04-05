@@ -98,7 +98,7 @@ class LaravelDriver extends Driver
         /* @var <int, \App\Types\Nav[]> $section */
         foreach ($navCollection->toArray() as $section) {
             $html .= '<li'
-            .(! empty($section->pages) && self::inSection($section->pages, $navCollection->filename) ? ' class="sub--on"' : '')
+            .(! empty($section['pages']) && self::inSection($section['pages'], $navCollection->filename) ? ' class="sub--on"' : '')
             .'>'.PHP_EOL;
 
             $html .= '<h2>'.$section['section']->title.'</h2>'.PHP_EOL;
