@@ -18,7 +18,8 @@ return [
     ],
 
     'excludes' => [
-
+        '.gitignore',
     ],
 
+    'url_prefix' => '',
 ];

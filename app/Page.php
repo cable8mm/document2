@@ -8,10 +8,13 @@ use App\Contracts\Markdownable;
 use App\Replacers\ContentReplacer;
 use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
+use App\Replacers\VersionOptionsReplacer;
 use App\Replacers\VersionReplacer;
+use App\Support\Config;
 use App\Support\Path;
 use App\Types\HtmlString;
 use App\Types\NavCollection;
+use App\Types\VersionCollection;
 use Illuminate\Support\Facades\File;
 use Stringable;
 
@@ -80,6 +83,12 @@ class Page implements Htmlable, Stringable
             new VersionReplacer($this->version),
             new ContentReplacer($html),
             new DocsLinkReplacer(''),
+            new VersionOptionsReplacer(
+                (new VersionCollection(
+                    Config::versions(),
+                    $this->version
+                ))->toOptions($this->filename)
+            ),
         ])->render();
     }
 
