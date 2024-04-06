@@ -2,6 +2,7 @@
 
 use App\Commands\CleanCommand;
 use App\Commands\DefaultCommand;
+use App\Commands\SetCommand;
 use App\Commands\TemplateCommand;
 
 return [
@@ -47,6 +48,7 @@ return [
         CleanCommand::class,
         DefaultCommand::class,
         TemplateCommand::class,
+        SetCommand::class,
     ],
 
     /*

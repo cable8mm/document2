@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Support\Config;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
@@ -33,9 +34,7 @@ class CleanCommand extends Command
     {
         $path = public_path();
 
-        $excludes = ['.gitignore'];
-
-        $path = public_path();
+        $excludes = Config::get('excludes');
 
         collect(glob($path.DIRECTORY_SEPARATOR.'*'))
             ->filter(function ($item) use ($excludes) {
@@ -48,10 +47,11 @@ class CleanCommand extends Command
                 return true;
             })
             ->map(function ($item) {
-                $result = File::isFile($item) ? File::delete($item) : File::deleteDirectory($item);
-                $result ? $this->info($item.' was deleted') : $this->error($item.' was failed to be deleted');
+                $this->task('Delete '.$item, function () use ($item) {
+                    return File::isFile($item) ? File::delete($item) : File::deleteDirectory($item);
+                });
             });
 
-        $this->info('Published files cleaned.');
+        $this->info('Operation executed.');
     }
 }

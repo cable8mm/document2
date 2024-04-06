@@ -26,13 +26,17 @@ class Config
     /**
      * Get config values for a given key
      *
-     * @param  string  $key  The config key
+     * @param  string|null  $key  The config key
      * @return mixed The method returns the config value of the given key
      */
-    public static function get(string $key): mixed
+    public static function get(?string $key = null): mixed
     {
-        if (! isset(self::$container[$key])) {
+        if (! isset(self::$container['template'])) {
             self::of();
+        }
+
+        if (is_null($key)) {
+            return self::$container;
         }
 
         assert(

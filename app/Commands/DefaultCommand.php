@@ -2,6 +2,8 @@
 
 namespace App\Commands;
 
+use App\Actions\PublishDefaultDocAction;
+use App\Actions\PublishDefaultVersionAction;
 use App\Document2;
 use App\Support\Config;
 use Illuminate\Support\Facades\File;
@@ -41,7 +43,7 @@ class DefaultCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(Document2 $document2): void
     {
         $branch = $this->option('branch');
         $filename = $this->option('filename');
@@ -59,6 +61,8 @@ class DefaultCommand extends Command
         Config::of($config);
 
         // Validate
+        $this->task('Read the configuration', fn () => true);
+
         if (! File::exists(base_path(Config::get('doc_path')))) {
             $this->error("The directory {Config::get('doc_path')} does not exist");
 
@@ -83,14 +87,28 @@ class DefaultCommand extends Command
             return;
         }
 
-        foreach ((new Document2($config))->save($branch, $filename) as $filename) {
-            $filename === false
-                ? $this->error('Published '.$filename.' documents failed.')
-                : $this->info('Published '.$filename.' documents.');
+        foreach ($document2->save($branch, $filename) as $location) {
+            $this->task('Publishing '.$location, function () use ($location) {
+                return $location !== false;
+            });
         }
 
-        $this->info('All documents published.');
+        $this->comment('All documents published.');
 
-        $this->call('set');
+        // Set default version
+        $this->task('Publish default version', function () use ($branch) {
+            return (new PublishDefaultVersionAction($branch))->execute() !== false;
+        });
+
+        // Set default document
+        foreach (Config::get('versions') as $version) {
+            $this->task('Publish default file as '.$filename.' in '.$version, function () use ($version, $filename) {
+                return (new PublishDefaultDocAction($version, $filename))->execute() !== false;
+            });
+        }
+
+        $this->comment('Default version and document was set.');
+
+        $this->info('Operation executed.');
     }
 }

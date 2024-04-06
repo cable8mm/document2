@@ -41,13 +41,19 @@ class SetCommand extends Command
         $filename = $this->option('filename') ?? Config::get('default_doc');
 
         // Set default version
-        (new PublishDefaultVersionAction($branch))->execute();
+        $this->task('Publishing default version', function () use ($branch) {
+            return (new PublishDefaultVersionAction($branch))->execute() !== false;
+        });
 
         // Set default document
         foreach (Config::get('versions') as $version) {
-            (new PublishDefaultDocAction($version, $filename))->execute();
+            $this->task('Publishing default file as '.$filename.' in '.$version, function () use ($version, $filename) {
+                return (new PublishDefaultDocAction($version, $filename))->execute() !== false;
+            });
         }
 
-        $this->info('Default version and document was set.');
+        $this->comment('Default version and document was set.');
+
+        $this->info('Operation executed.');
     }
 }

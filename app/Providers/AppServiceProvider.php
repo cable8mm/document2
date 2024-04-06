@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Document2;
 use App\Support\Config;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,9 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Document2::class, function () {
             return new Document2(
-                resolve(Filesystem::class),
-                Config::get('doc_path'),
-                Config::get('default_version')
+                Config::get(),
             );
         });
     }
