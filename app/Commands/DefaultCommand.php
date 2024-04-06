@@ -3,12 +3,14 @@
 namespace App\Commands;
 
 use App\Document2;
-use App\Drivers\LaravelDriver;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
 /**
- * Copy
+ * Generates the html files from markdown documents and set default version and documentation
+ *
+ * @example ./document2
+ * @example ./document2 --template laravel
  */
 class DefaultCommand extends Command
 {
@@ -18,7 +20,13 @@ class DefaultCommand extends Command
      * @var string
      */
     protected $signature = 'default
-                            {--d|dir=docs : The directory in markdown files}
+                            {--dir=docs : Specify the path for the markdown documentation.}
+                            {--template=laravel : Specify the template name for generating HTML files. View all files within the `templates` folder.}
+                            {--publish_path=public : Specify the folder where HTML files will be generated.}
+                            {--default_version=master : Specify the default version of the documentation. This version will be displayed when the root domain is visited.}
+                            {--default_doc=installation.md : Specify the default documentation. This documentation will be displayed when the root documentation path is visited.}
+                            {--versions=master : Specify all documentation versions. These must exactly match the Git branch names.}
+                            {--current_domain=https://www.laravel.com : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
                             {--b|branch= : The branch or version of markdown}
                             {--f|filename= : The markdown filename}';
 
@@ -37,6 +45,16 @@ class DefaultCommand extends Command
         $dir = $this->option('dir');
         $branch = $this->option('branch');
         $filename = $this->option('filename');
+
+        $config = [
+            'doc_path' => $dir,
+            'template' => $this->option('template'),
+            'publish_path' => $this->option('publish_path'),
+            'default_version' => $this->option('default_version'),
+            'default_doc' => $this->option('default_doc'),
+            'versions' => array_map('trim', explode(',', $this->option('versions'))),
+            'current_domain' => $this->option('current_domain'),
+        ];
 
         // Validate
         if (! File::exists(base_path($dir))) {
@@ -63,16 +81,14 @@ class DefaultCommand extends Command
             return;
         }
 
-        $this->info("The file {$branch}/{$filename}");
-
-        foreach ((new Document2(
-            new LaravelDriver
-        ))->save($branch, $filename) as $filename) {
+        foreach ((new Document2($config))->save($branch, $filename) as $filename) {
             $filename === false
                 ? $this->error('Published '.$filename.' documents failed.')
                 : $this->info('Published '.$filename.' documents.');
         }
 
-        $this->info('Published documents.');
+        $this->info('All documents published.');
+
+        $this->call('set');
     }
 }

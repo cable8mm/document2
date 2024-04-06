@@ -12,3 +12,13 @@ test('PublishDefaultVersionAction run', function () {
         $publishDefaultVersionAction->execute()
     )->not->toBe(false);
 });
+
+test('PublishDefaultVersionAction run in public folder', function () {
+    $publishDefaultVersionAction = new PublishDefaultVersionAction(
+        '10.x'
+    );
+
+    expect(
+        $publishDefaultVersionAction->execute()
+    )->not->toBe(false);
+});

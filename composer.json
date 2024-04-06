@@ -23,10 +23,10 @@
     ],
     "require": {
         "php": "^8.1",
+        "cable8mm/commonmark-unfenced": "^1.0",
         "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
         "illuminate/view": "^9.0|^10.0",
         "laravel-zero/framework": "^10.2",
-        "laravel/unfenced": "dev-main",
         "nunomaduro/termwind": "^1.15.1",
         "symfony/dom-crawler": "^6.0|^7.0",
         "torchlight/torchlight-commonmark": "^0.5.5"
@@ -41,15 +41,9 @@
         "laravel-zero/framework": "Required to application framework.",
         "torchlight/torchlight-commonmark": "Required to highlight source code.",
         "symfony/dom-crawler": "Required to get DOM contents.",
-        "laravel/unfenced": "Required to view tabs of source code block.",
+        "cable8mm/commonmark-unfenced": "Required to view tabs of source code block.",
         "intonate/tinker-zero": "Required to debug using tinkerwell."
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:laravel-labs/unfenced.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",

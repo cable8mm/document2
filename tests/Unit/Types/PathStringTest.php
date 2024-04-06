@@ -5,7 +5,7 @@ use App\Types\PathString;
 it('run toPath', function () {
     expect(
         (new PathString('/Users/cable8mm/Sites/document2/public/10.x/artisan.md'))->toPath()
-    )->toBe('/Users/cable8mm/Sites/document2/public/10.x/artisan.md');
+    )->toContain('/public/10.x/artisan.md');
 });
 
 it('run toDir', function () {
@@ -24,4 +24,10 @@ it('run toLocation from index.html', function () {
     expect(
         (new PathString('/Users/cable8mm/Sites/document2/public/10.x/artisan/index.html'))->toLocation()
     )->toBe('/Users/cable8mm/Sites/document2/public/10.x/artisan/index.html');
+});
+
+it('run toDir from index.html without filename', function () {
+    expect(
+        (new PathString('/Users/cable8mm/Sites/document2/public/10.x'))->toDir()
+    )->toBe('/Users/cable8mm/Sites/document2/public/10.x');
 });

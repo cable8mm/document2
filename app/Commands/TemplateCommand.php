@@ -38,5 +38,7 @@ class TemplateCommand extends Command
         } catch (\InvalidArgumentException $e) {
             $this->error($e->getMessage());
         }
+
+        $this->info('Copied specific template to public folder successful.');
     }
 }

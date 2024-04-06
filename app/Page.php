@@ -82,10 +82,10 @@ class Page implements Htmlable, Stringable
             new NavigationReplacer((string) $this->navigation()),
             new VersionReplacer($this->version),
             new ContentReplacer($html),
-            new DocsLinkReplacer(''),
+            new DocsLinkReplacer('/'.$this->version.'/'),
             new VersionOptionsReplacer(
                 (new VersionCollection(
-                    Config::versions(),
+                    Config::get('versions'),
                     $this->version
                 ))->toOptions($this->filename)
             ),
@@ -100,6 +100,20 @@ class Page implements Htmlable, Stringable
     public function toFile(): string|bool
     {
         $location = Path::publish($this->version, $this->filename);
+
+        File::ensureDirectoryExists($location->toDir());
+
+        return is_bool(File::put($location->toLocation(), $this->toHtml())) ? false : $location;
+    }
+
+    /**
+     * Save the document to the filesystem for front page
+     *
+     * @return string|bool The methods return the location written to the filesystem or false on failure
+     */
+    public function toFrontFile(): string|bool
+    {
+        $location = Path::publish($this->version);
 
         File::ensureDirectoryExists($location->toDir());
 

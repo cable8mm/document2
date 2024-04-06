@@ -25,7 +25,7 @@ return [
     /**
      * Specify the default documentation. This documentation will be displayed when the root documentation path is visited.
      */
-    'default_doc' => env('DEFAULT_DOC', 'installation'),
+    'default_doc' => env('DEFAULT_DOC', 'installation.md'),
 
     /**
      * Specify all documentation versions. These must exactly match the Git branch names.

@@ -34,7 +34,7 @@ class PathString implements Pathable, Stringable
     {
         $url = preg_replace('/\/index\.html$/', '', $this->path);
 
-        return preg_replace('/\.[^\.\/]+$/', '', $url);
+        return preg_replace('/\.[^\.\/x]+$/', '', $url);
     }
 
     /**
