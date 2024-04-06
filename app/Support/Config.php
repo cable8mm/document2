@@ -42,9 +42,4 @@ class Config
 
         return self::$container[$key];
     }
-
-    public static function versions(): array
-    {
-        return config('document2.versions');
-    }
 }
