@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Contracts\DriverInterface;
+use App\Support\Config;
+use App\Support\Reflection;
 use Generator;
 use InvalidArgumentException;
 
@@ -13,6 +15,8 @@ class Document2
      */
     protected array $documents;
 
+    protected DriverInterface $driver;
+
     /**
      * Create a new documentation instance.
      *
@@ -20,8 +24,12 @@ class Document2
      * @return void
      */
     public function __construct(
-        protected DriverInterface $driver
+        array $config = []
     ) {
+        Config::of($config);
+
+        $this->driver = Reflection::driver(Config::get('template'));
+
         foreach ($this->driver::getVersions() as $version) {
 
             $pages = [];

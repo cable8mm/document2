@@ -1,20 +1,15 @@
 <?php
 
 use App\Document2;
-use App\Drivers\LaravelDriver;
 
 it('create instance', function () {
-    $driver = new LaravelDriver();
-
     expect(
-        new Document2($driver)
+        new Document2()
     )->toBeInstanceOf(Document2::class);
 });
 
 it('save', function () {
-    $driver = new LaravelDriver();
-
-    (new Document2($driver))->save();
+    (new Document2())->save();
 
     expect(
         glob(public_path().'*')
@@ -23,8 +18,16 @@ it('save', function () {
 
 it('should run count method', function () {
     expect(
-        (new Document2(
-            new LaravelDriver
-        ))->count()
+        (new Document2())->count()
     )->toBe(11);
+});
+
+test('combine config', function () {
+    $config = [
+        'template' => 'cable8mm',
+    ];
+
+    $config = [...config('document2'), ...$config];
+
+    expect($config['template'])->toBe('cable8mm');
 });

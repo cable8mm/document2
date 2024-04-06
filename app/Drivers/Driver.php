@@ -5,6 +5,7 @@ namespace App\Drivers;
 use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Pathable;
+use App\Support\Config;
 use App\Types\NavCollection;
 use App\Types\PathString;
 
@@ -25,8 +26,8 @@ abstract class Driver implements DriverInterface
     {
         $path = base_path(
             $path
-            ? config('document2.doc_path').DIRECTORY_SEPARATOR.$path
-            : config('document2.doc_path')
+            ? Config::get('doc_path').DIRECTORY_SEPARATOR.$path
+            : Config::get('doc_path')
         );
 
         return new PathString($path);
@@ -37,7 +38,7 @@ abstract class Driver implements DriverInterface
      */
     public static function excludes(): array
     {
-        return config('document2.excludes');
+        return Config::get('excludes');
     }
 
     /**
@@ -45,7 +46,7 @@ abstract class Driver implements DriverInterface
      */
     public static function getVersions(): ?array
     {
-        return config('document2.versions');
+        return Config::get('versions');
     }
 
     /**
@@ -53,7 +54,7 @@ abstract class Driver implements DriverInterface
      */
     public static function getDefaultVersion(): ?string
     {
-        return config('document2.default_version');
+        return Config::get('default_version');
     }
 
     /**

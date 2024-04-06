@@ -73,7 +73,7 @@ class Page implements Htmlable, Stringable
         $html = $this->content->toHtml();
 
         $location = Path::template(
-            config('document2.template')
+            Config::get('template')
         );
 
         $template = new HtmlString(File::get($location));

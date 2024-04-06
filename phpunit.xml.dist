@@ -25,5 +25,7 @@
         <env name="TEMPLATE_PATH" value="templates" />
         <env name="PUBLISH_PATH" value="tests/Fixtures/public" />
         <env name="DEFAULT_VERSION" value="20.x" />
+        <env name="DOC_VERSIONS" value="20.x,10.x" />
+        <env name="EXCLUDES_FILES" value=".gitignore" />
     </php>
 </phpunit>
