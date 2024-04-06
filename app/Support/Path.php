@@ -16,6 +16,6 @@ class Path
     {
         $filename = preg_replace('/\.[^\.]+$/', '/index.html', $filename);
 
-        return new PathString(base_path(config('document2.publish_path').DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$filename));
+        return new PathString(base_path(Config::get('publish_path').DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$filename));
     }
 }
