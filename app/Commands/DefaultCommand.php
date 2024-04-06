@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Document2;
+use App\Support\Config;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 
@@ -20,13 +21,13 @@ class DefaultCommand extends Command
      * @var string
      */
     protected $signature = 'default
-                            {--dir=docs : Specify the path for the markdown documentation.}
-                            {--template=laravel : Specify the template name for generating HTML files. View all files within the `templates` folder.}
-                            {--publish_path=public : Specify the folder where HTML files will be generated.}
-                            {--default_version=master : Specify the default version of the documentation. This version will be displayed when the root domain is visited.}
-                            {--default_doc=installation.md : Specify the default documentation. This documentation will be displayed when the root documentation path is visited.}
-                            {--versions=master : Specify all documentation versions. These must exactly match the Git branch names.}
-                            {--current_domain=https://www.laravel.com : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
+                            {--dir= : Specify the path for the markdown documentation.}
+                            {--template= : Specify the template name for generating HTML files. View all files within the `templates` folder.}
+                            {--publish_path= : Specify the folder where HTML files will be generated.}
+                            {--default_version= : Specify the default version of the documentation. This version will be displayed when the root domain is visited.}
+                            {--default_doc= : Specify the default documentation. This documentation will be displayed when the root documentation path is visited.}
+                            {--versions= : Specify all documentation versions. These must exactly match the Git branch names.}
+                            {--current_domain= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
                             {--b|branch= : The branch or version of markdown}
                             {--f|filename= : The markdown filename}';
 
@@ -42,12 +43,11 @@ class DefaultCommand extends Command
      */
     public function handle(): void
     {
-        $dir = $this->option('dir');
         $branch = $this->option('branch');
         $filename = $this->option('filename');
 
         $config = [
-            'doc_path' => $dir,
+            'doc_path' => $this->option('dir'),
             'template' => $this->option('template'),
             'publish_path' => $this->option('publish_path'),
             'default_version' => $this->option('default_version'),
@@ -56,15 +56,17 @@ class DefaultCommand extends Command
             'current_domain' => $this->option('current_domain'),
         ];
 
+        Config::of($config);
+
         // Validate
-        if (! File::exists(base_path($dir))) {
-            $this->error("The directory {$dir} does not exist");
+        if (! File::exists(base_path(Config::get('doc_path')))) {
+            $this->error("The directory {Config::get('doc_path')} does not exist");
 
             return;
         }
 
-        if (! is_null($branch) && ! File::exists(base_path($dir.DIRECTORY_SEPARATOR.$branch))) {
-            $this->error("The directory {$dir}/{$branch} does not exist");
+        if (! is_null($branch) && ! File::exists(base_path(Config::get('doc_path').DIRECTORY_SEPARATOR.$branch))) {
+            $this->error("The directory {Config::get('doc_path')}/{$branch} does not exist");
 
             return;
         }
@@ -75,8 +77,8 @@ class DefaultCommand extends Command
             return;
         }
 
-        if (! is_null($branch) && ! is_null($filename) && ! File::exists(base_path($dir.DIRECTORY_SEPARATOR.$branch.DIRECTORY_SEPARATOR.$filename))) {
-            $this->error("The file {$dir}/{$branch}/{$filename} does not exist");
+        if (! is_null($branch) && ! is_null($filename) && ! File::exists(base_path(Config::get('doc_path').DIRECTORY_SEPARATOR.$branch.DIRECTORY_SEPARATOR.$filename))) {
+            $this->error('The file '.Config::get('doc_path').'/'.$branch.'/'.$filename.' does not exist');
 
             return;
         }
