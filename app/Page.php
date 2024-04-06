@@ -5,13 +5,16 @@ namespace App;
 use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Markdownable;
+use App\Replacers\CanonicalReplacer;
 use App\Replacers\ContentReplacer;
 use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
+use App\Replacers\TitleReplacer;
 use App\Replacers\VersionOptionsReplacer;
 use App\Replacers\VersionReplacer;
 use App\Support\Config;
 use App\Support\Path;
+use App\Support\URL;
 use App\Types\HtmlString;
 use App\Types\NavCollection;
 use App\Types\VersionCollection;
@@ -79,6 +82,8 @@ class Page implements Htmlable, Stringable
         $template = new HtmlString(File::get($location));
 
         return $template->register([
+            new CanonicalReplacer(URL::canonical($this->filename, $this->version)),
+            new TitleReplacer($this->title),
             new NavigationReplacer((string) $this->navigation()),
             new VersionReplacer($this->version),
             new ContentReplacer($html),

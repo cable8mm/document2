@@ -22,10 +22,18 @@
 
     <php>
         <env name="DOC_PATH" value="tests/Fixtures/docs" />
-        <env name="TEMPLATE_PATH" value="templates" />
         <env name="PUBLISH_PATH" value="tests/Fixtures/public" />
         <env name="DEFAULT_VERSION" value="20.x" />
         <env name="DOC_VERSIONS" value="20.x,10.x" />
+        <!-- <env name="DOC_PATH" value="docs" />
+        <env name="PUBLISH_PATH" value="public" />
+        <env name="DEFAULT_VERSION" value="master" />
+        <env name="DOC_VERSIONS" value="master" /> -->
+        <env name="TEMPLATE_PATH" value="templates" />
         <env name="EXCLUDES_FILES" value=".gitignore" />
+        <env name="TORCHLIGHT_TOKEN" value="torch_1svQsUUUJROGJ9lwwaqZSq9tJSpIKEQpNft3OXo9" />
+        <env name="TORCHLIGHT_LIGHT_THEME" value="github-light" />
+        <env name="TORCHLIGHT_DARK_THEME" value="github-dark" />
+        <env name="CURRENT_DOMAIN" value="https://document2.test" />
     </php>
 </phpunit>

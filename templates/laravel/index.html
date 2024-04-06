@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
 
         <title>
-            Service Container - Laravel 11.x - The PHP Framework For Web
+            {{ title }} - Laravel {{ version }} - The PHP Framework For Web
             Artisans
         </title>
 
@@ -13,7 +13,7 @@
             content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
 
-        <link rel="canonical" href="https://laravel.com/docs/11.x/container" />
+        <link rel="canonical" href="{{ canonical }}" />
 
         <!-- Primary Meta Tags -->
         <meta
@@ -27,7 +27,7 @@
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://laravel.com/" />
+        <meta property="og:url" content="{{ canonical }}" />
         <meta
             property="og:title"
             content="Laravel - The PHP Framework For Web Artisans"
@@ -36,14 +36,11 @@
             property="og:description"
             content="Laravel is a PHP web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things."
         />
-        <meta
-            property="og:image"
-            content="https://laravel.com/img/og-image.jpg"
-        />
+        <meta property="og:image" content="{{ canonical }}/img/og-image.jpg" />
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://laravel.com/" />
+        <meta property="twitter:url" content="{{ canonical }}" />
         <meta
             property="twitter:title"
             content="Laravel - The PHP Framework For Web Artisans"
@@ -54,14 +51,14 @@
         />
         <meta
             property="twitter:image"
-            content="https://laravel.com/img/og-image.jpg"
+            content="{{ canonical }}/img/og-image.jpg"
         />
 
         <!-- Favicon -->
         <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="https://laravel.com/img/favicon/apple-touch-icon.png"
+            href="{{ canonical }}/img/favicon/apple-touch-icon.png"
         />
         <link
             rel="icon"
