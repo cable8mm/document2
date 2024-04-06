@@ -1,5 +1,16 @@
 # Release Notes
 
+## v0.3.0 - 2024-04-06
+
+### What's Changed
+
+* Revamp the configuration by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/13
+* Apply the `set` command for setting the default version and documentation by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/14
+* Implement additional HTML replacers by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/15
+* Revise the `set` command for refactoring by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/16
+
+**Full Changelog**: https://github.com/cable8mm/document2/compare/v0.2.1...v0.3.0
+
 ## v0.2.1 - 2024-04-05
 
 ### What's Changed
