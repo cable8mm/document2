@@ -3,12 +3,16 @@
 namespace App\Actions;
 
 use App\Contracts\ActionInterface;
+use App\Page;
+use App\Support\Config;
+use App\Support\Path;
+use App\Support\Reflection;
 use Illuminate\Support\Facades\File;
 
 /**
  * Publish redirecting to default documentation
  *
- * @example (new PublishDefaultDocAction('/path/to/publish/index.html', '10.x'))->execute()
+ * @example (new PublishDefaultDocAction('10.x', 'installation.md'))->execute()
  */
 class PublishDefaultDocAction implements ActionInterface
 {
@@ -17,12 +21,11 @@ class PublishDefaultDocAction implements ActionInterface
      *
      * @param  string  $publishPath  The root path for the specific version.
      * @param  string  $version  The documentation version.
-     * @param  string  $document  The default document filename without `.md`. If the first documentation isn't default, it will be set to the default documentation.
+     * @param  string  $filename  The default document filename without `.md`. If the first documentation isn't default, it will be set to the default documentation.
      */
     public function __construct(
-        protected string $publishPath,
         protected string $version,
-        protected string $document
+        protected string $filename
     ) {
 
     }
@@ -34,23 +37,14 @@ class PublishDefaultDocAction implements ActionInterface
      */
     public function execute(): int|bool
     {
-        File::ensureDirectoryExists($this->publishPath.DIRECTORY_SEPARATOR.$this->version);
+        if ((new Page(
+            $this->filename,
+            $this->version,
+            Reflection::driver(Config::get('template'))
+        ))->toFrontFile() === false) {
+            return false;
+        }
 
-        return File::put(
-            $this->publishPath.DIRECTORY_SEPARATOR.$this->version.DIRECTORY_SEPARATOR.'index.html',
-            <<< 'NOWDOC'
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Redirecting...</title>
-            <meta charset="UTF-8" />
-            <meta http-equiv="refresh" content="0; URL=./'.$this->version.'/'.$this->document.'" />
-    </head>
-    <body>
-        <p>This page has been moved. If you are not redirected within 3 seconds, click <a href="./'.$this->version.'/'.$this->document.'">here</a> to go to the correct document.</p>
-    </body>
-</html>
-NOWDOC
-        );
+        return 1;
     }
 }

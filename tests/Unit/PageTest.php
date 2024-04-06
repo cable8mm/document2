@@ -45,3 +45,15 @@ it('run toFile', function () {
 
     expect($page->toFile())->toContain('artisan/index.html');
 });
+
+it('run toFrontFile', function () {
+    $page = new Page('artisan.md', '10.x', new LaravelDriver());
+
+    expect($page->toFrontFile())->toContain('10.x/index.html');
+});
+
+it('run toFrontFile in master version', function () {
+    $page = new Page('valet.md', '20.x', new LaravelDriver());
+
+    expect($page->toFrontFile())->toContain('20.x/index.html');
+});

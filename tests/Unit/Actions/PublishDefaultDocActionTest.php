@@ -4,9 +4,8 @@ use App\Actions\PublishDefaultDocAction;
 
 test('PublishDefaultVersionAction run', function () {
     $publishDefaultDocAction = new PublishDefaultDocAction(
-        getcwd().DIRECTORY_SEPARATOR.$_ENV['PUBLISH_PATH'],
         '10.x',
-        'installation'
+        'artisan.md'
     );
 
     expect(
