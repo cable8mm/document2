@@ -103,9 +103,11 @@ class DefaultCommand extends Command
         });
 
         // Set default document
+        $defaultDoc = Config::get('default_doc');
+
         foreach (Config::get('versions') as $version) {
-            $this->task('Publish default file as '.$filename.' in '.$version, function () use ($version, $filename) {
-                return (new PublishDefaultDocAction($version, $filename))->execute() !== false;
+            $this->task('Publish default file as '.$defaultDoc.' in '.$version, function () use ($version, $defaultDoc) {
+                return (new PublishDefaultDocAction($version, $defaultDoc))->execute() !== false;
             });
         }
 
