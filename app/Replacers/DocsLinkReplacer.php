@@ -2,8 +2,10 @@
 
 namespace App\Replacers;
 
+use App\Support\Config;
+
 /**
- * Replace `/docs/{{version}}/frontend` to `frontend`
+ * Replace `/Config::get('doc_path')/{{version}}/frontend` to `frontend`
  */
 final class DocsLinkReplacer extends Replacer
 {

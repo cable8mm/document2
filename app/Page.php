@@ -5,10 +5,13 @@ namespace App;
 use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Markdownable;
+use App\Contracts\RendererInterface;
+use App\Replacers\AppUrlReplacer;
 use App\Replacers\CanonicalReplacer;
 use App\Replacers\ContentReplacer;
 use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
+use App\Replacers\OriginalUrlReplacer;
 use App\Replacers\TitleReplacer;
 use App\Replacers\VersionOptionsReplacer;
 use App\Replacers\VersionReplacer;
@@ -61,7 +64,7 @@ class Page implements Htmlable, Stringable
         return $this->title;
     }
 
-    public function navigation(): Htmlable
+    public function navigation(): Htmlable|RendererInterface
     {
         return $this->driver::getNavHtml($this->navCollection);
     }
@@ -73,8 +76,6 @@ class Page implements Htmlable, Stringable
 
     public function toHtml(): string
     {
-        $html = $this->content->toHtml();
-
         $location = Path::template(
             Config::get('template')
         );
@@ -82,12 +83,21 @@ class Page implements Htmlable, Stringable
         $template = new HtmlString(File::get($location));
 
         return $template->register([
-            new CanonicalReplacer(URL::canonical($this->filename, $this->version)),
+            new NavigationReplacer(
+                $this->navigation()->register([
+                    new OriginalUrlReplacer(Config::get('original_url')),
+                ])->render()
+            ),
+            new ContentReplacer(
+                $this->content->toHtmlable()->register([
+                    new OriginalUrlReplacer(Config::get('original_url')),
+                ])->render()
+            ),
             new TitleReplacer($this->title),
-            new NavigationReplacer((string) $this->navigation()),
-            new VersionReplacer($this->version),
-            new ContentReplacer($html),
+            new CanonicalReplacer(URL::canonical($this->filename, $this->version)),
             new DocsLinkReplacer('/'.$this->version.'/'),
+            new AppUrlReplacer(Config::get('app_url')),
+            new VersionReplacer($this->version),
             new VersionOptionsReplacer(
                 (new VersionCollection(
                     Config::get('versions'),

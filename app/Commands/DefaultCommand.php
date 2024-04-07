@@ -29,7 +29,8 @@ class DefaultCommand extends Command
                             {--default_version= : Specify the default version of the documentation. This version will be displayed when the root domain is visited.}
                             {--default_doc= : Specify the default documentation. This documentation will be displayed when the root documentation path is visited.}
                             {--versions= : Specify all documentation versions. These must exactly match the Git branch names.}
-                            {--current_domain= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
+                            {--app_url= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
+                            {--original_url= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
                             {--b|branch= : The branch or version of markdown}
                             {--f|filename= : The markdown filename}';
 
@@ -54,8 +55,9 @@ class DefaultCommand extends Command
             'publish_path' => $this->option('publish_path'),
             'default_version' => $this->option('default_version'),
             'default_doc' => $this->option('default_doc'),
-            'versions' => array_map('trim', explode(',', $this->option('versions'))),
-            'current_domain' => $this->option('current_domain'),
+            'versions' => $this->option('versions') ? array_map('trim', explode(',', $this->option('versions'))) : null,
+            'app_url' => $this->option('app_url'),
+            'original_url' => $this->option('original_url'),
         ];
 
         Config::of($config);

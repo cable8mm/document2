@@ -44,7 +44,7 @@ class URL
      */
     public static function canonical(string $filename, ?string $version = null): string
     {
-        return Config::get('current_domain')
+        return Config::get('app_url')
             .(is_null($version) ? '' : '/'.$version)
             .'/'.self::filename2path($filename);
     }
