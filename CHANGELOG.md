@@ -1,5 +1,15 @@
 # Release Notes
 
+## v0.4.0 - 2024-04-07
+
+### What's Changed
+
+* Revise the functionality of APP_URL and ORIGINAL_URL by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/17
+* Fix a bug about wrong `default_doc` by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/18
+* Arrange `Replacer`s correctly by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/19
+
+**Full Changelog**: https://github.com/cable8mm/document2/compare/v0.3.0...v0.4.0
+
 ## v0.3.0 - 2024-04-06
 
 ### What's Changed
