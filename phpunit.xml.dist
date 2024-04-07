@@ -34,6 +34,7 @@
         <env name="TORCHLIGHT_TOKEN" value="torch_1svQsUUUJROGJ9lwwaqZSq9tJSpIKEQpNft3OXo9" />
         <env name="TORCHLIGHT_LIGHT_THEME" value="github-light" />
         <env name="TORCHLIGHT_DARK_THEME" value="github-dark" />
-        <env name="CURRENT_DOMAIN" value="https://document2.test" />
+        <env name="APP_URL" value="https://document2.test" />
+        <env name="ORIGINAL_URL" value="https://www.laravel.com" />
     </php>
 </phpunit>

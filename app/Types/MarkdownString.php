@@ -7,7 +7,7 @@ use App\Contracts\Markdownable;
 use App\Markdown\GithubFlavoredMarkdownConverter;
 use Stringable;
 
-class MarkdownString implements Htmlable, Markdownable, Stringable
+class MarkdownString implements Markdownable, Stringable
 {
     /**
      * Create a new Markdown string instance.
@@ -32,6 +32,11 @@ class MarkdownString implements Htmlable, Markdownable, Stringable
     public function toHtml(): string
     {
         return (new GithubFlavoredMarkdownConverter())->convert($this->toMarkdown());
+    }
+
+    public function toHtmlable(): Htmlable
+    {
+        return new HtmlString((new GithubFlavoredMarkdownConverter())->convert($this->toMarkdown()));
     }
 
     /**

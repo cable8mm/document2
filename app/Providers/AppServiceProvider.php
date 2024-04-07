@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Document2::class, function () {
             return new Document2(
-                Config::get(),
+                Config::all(),
             );
         });
     }

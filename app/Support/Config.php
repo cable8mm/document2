@@ -20,23 +20,19 @@ class Config
      */
     public static function of(array $config = []): void
     {
-        self::$container = [...config('document2'), ...$config];
+        self::$container = [...config('document2'), ...array_filter($config)];
     }
 
     /**
      * Get config values for a given key
      *
-     * @param  string|null  $key  The config key
+     * @param  string  $key  The config key
      * @return mixed The method returns the config value of the given key
      */
-    public static function get(?string $key = null): mixed
+    public static function get(string $key): mixed
     {
-        if (! isset(self::$container['template'])) {
+        if (! isset(self::$container[$key])) {
             self::of();
-        }
-
-        if (is_null($key)) {
-            return self::$container;
         }
 
         assert(
@@ -45,5 +41,14 @@ class Config
         );
 
         return self::$container[$key];
+    }
+
+    public static function all(): mixed
+    {
+        if (! isset(self::$container['template'])) {
+            self::of();
+        }
+
+        return self::$container;
     }
 }

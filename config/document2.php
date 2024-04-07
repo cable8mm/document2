@@ -38,7 +38,12 @@ return [
     'excludes' => array_map('trim', explode(',', env('EXCLUDES_FILES'))),
 
     /**
-     * Set the current domain link to another website, such as `/api/master`, rather than a documentation.
+     * Set the app url for document root.
      */
-    'current_domain' => env('CURRENT_DOMAIN', 'https://www.laravel.com'),
+    'app_url' => env('APP_URL', 'https://document2.test'),
+
+    /**
+     * Set the original domain link to another website, such as `/api/master`, rather than a documentation.
+     */
+    'original_url' => env('ORIGINAL_URL', 'https://www.laravel.com'),
 ];
