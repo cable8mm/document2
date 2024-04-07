@@ -20,8 +20,9 @@ We have done our best to create a convenient tool for you all. Take a moment to 
 - [x] Templates are supported
 - [x] Testing available locally
 - [x] Dark theme is supported
-- [ ] Publish GitHub Pages with actions
+- [ ] Skeleton Theme is supported
 - [ ] Search is supported
+- [ ] Publish GitHub Pages with actions
 - [ ] SEO is supported
 
 ## Installation
@@ -57,9 +58,9 @@ Finally, run the following command to generate the static htmls
 
 If Laravel Valet or Laravel Herd has been installed, you can visit https://document2.test.
 
-## Development
+## Development Templates
 
-### Create Templates
+### Create
 
 ```shell
 cd templates
@@ -69,13 +70,35 @@ npm run dev
 
 and visit http://localhost:5173/. The port can be different.
 
-### Testing
+### Reserved Placeholders
+
+    {{ title }} : replaces title
+    {{ version }} : replaces documentation version
+    {{ canonical }} : replaces canonical url of the documentation
+    {{ app_url }} : replaces documentation url
+    {{ original_url }} : original website url out of docs
+
+### Reserved Dividers
+
+    <!-- doc.navigator.start -->
+    The navigator html is inserted in this area
+    <!-- doc.navigator.end -->
+
+    <!-- version.options.start -->
+    The option html is inserted in this area
+    <!-- version.options.end -->
+
+    <!-- doc.content.start -->
+    The markdown documentation html is inserted in this area
+    <!-- doc.content.end -->
+
+## Testing
 
 ```shell
 composer test
 ```
 
-### Formatting
+## Formatting
 
 ```shell
 composer lint

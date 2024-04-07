@@ -98,8 +98,10 @@ class DefaultCommand extends Command
         $this->comment('All documents published.');
 
         // Set default version
-        $this->task('Publish default version', function () use ($branch) {
-            return (new PublishDefaultVersionAction($branch))->execute() !== false;
+        $defaultVersion = Config::get('default_version');
+
+        $this->task('Publish default version', function () use ($defaultVersion) {
+            return (new PublishDefaultVersionAction($defaultVersion))->execute() !== false;
         });
 
         // Set default document
