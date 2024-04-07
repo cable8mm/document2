@@ -85,17 +85,18 @@ class Page implements Htmlable, Stringable
         return $template->register([
             new NavigationReplacer(
                 $this->navigation()->register([
+                    new DocsLinkReplacer('/'.$this->version.'/'),
                     new OriginalUrlReplacer(Config::get('original_url')),
                 ])->render()
             ),
             new ContentReplacer(
                 $this->content->toHtmlable()->register([
+                    new DocsLinkReplacer('/'.$this->version.'/'),
                     new OriginalUrlReplacer(Config::get('original_url')),
                 ])->render()
             ),
             new TitleReplacer($this->title),
             new CanonicalReplacer(URL::canonical($this->filename, $this->version)),
-            new DocsLinkReplacer('/'.$this->version.'/'),
             new AppUrlReplacer(Config::get('app_url')),
             new VersionReplacer($this->version),
             new VersionOptionsReplacer(
