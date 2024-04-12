@@ -20,7 +20,7 @@ class PathString implements Pathable, Stringable
     }
 
     /**
-     * Get the Path string.
+     * {@inheritDoc}
      */
     public function toPath(): string
     {
@@ -28,7 +28,7 @@ class PathString implements Pathable, Stringable
     }
 
     /**
-     * Get the parent path string or the directory from location.
+     * {@inheritDoc}
      */
     public function toDir(): string
     {
@@ -38,7 +38,7 @@ class PathString implements Pathable, Stringable
     }
 
     /**
-     * Get published location.
+     * {@inheritDoc}
      */
     public function toLocation(): string
     {

@@ -12,6 +12,7 @@ use App\Replacers\ContentReplacer;
 use App\Replacers\DocsLinkReplacer;
 use App\Replacers\NavigationReplacer;
 use App\Replacers\OriginalUrlReplacer;
+use App\Replacers\SectionTitleReplacer;
 use App\Replacers\TitleReplacer;
 use App\Replacers\VersionOptionsReplacer;
 use App\Replacers\VersionReplacer;
@@ -27,6 +28,8 @@ use Stringable;
 class Page implements Htmlable, Stringable
 {
     public string $title;
+
+    public string $sectionTitle;
 
     public array $versions;
 
@@ -61,7 +64,12 @@ class Page implements Htmlable, Stringable
 
     public function title(): string
     {
-        return $this->title;
+        return strip_tags($this->title);
+    }
+
+    public function getSectionTitle(): string
+    {
+        return strip_tags($this->navCollection->getSectionTitle($this->title));
     }
 
     public function navigation(): Htmlable|RendererInterface
@@ -76,9 +84,7 @@ class Page implements Htmlable, Stringable
 
     public function toHtml(): string
     {
-        $location = Path::template(
-            Config::get('template')
-        );
+        $location = $this->driver->getTemplateLocation();
 
         $template = new HtmlString(File::get($location));
 
@@ -95,7 +101,8 @@ class Page implements Htmlable, Stringable
                     new OriginalUrlReplacer(Config::get('original_url')),
                 ])->render()
             ),
-            new TitleReplacer($this->title),
+            new TitleReplacer($this->title()),
+            new SectionTitleReplacer($this->getSectionTitle()),
             new CanonicalReplacer(URL::canonical($this->filename, $this->version)),
             new AppUrlReplacer(Config::get('app_url')),
             new VersionReplacer($this->version),

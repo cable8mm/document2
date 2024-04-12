@@ -33,10 +33,12 @@ composer install cable8mm/document2
 
 ## Usage
 
+Three official three templates are available. We can introduce them for creating as soon as possible.
+
 Select your template:
 
 ```shell
-./document2 template laravel
+bin/install-theme.sh https://github.com/cable8mm/laravel-theme
 ```
 
 And clone the documentation files:
@@ -72,11 +74,12 @@ and visit http://localhost:5173/. The port can be different.
 
 ### Reserved Placeholders
 
-    {{ title }} : replaces title
-    {{ version }} : replaces documentation version
-    {{ canonical }} : replaces canonical url of the documentation
-    {{ app_url }} : replaces documentation url
-    {{ original_url }} : original website url out of docs
+    {{ section_title }} : replaces the section title
+    {{ title }} : replaces the title
+    {{ version }} : replaces the documentation version
+    {{ canonical }} : replaces the canonical url of the documentation
+    {{ app_url }} : replaces the documentation url
+    {{ original_url }} : replaces the original website url out of docs
 
 ### Reserved Dividers
 

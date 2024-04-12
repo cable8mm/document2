@@ -39,6 +39,25 @@ class NavCollection
     }
 
     /**
+     * Get the section title
+     *
+     * @param  string  $title  The title
+     * @return string|null The method returns the section title if found, null otherwise
+     */
+    public function getSectionTitle(string $title): ?string
+    {
+        foreach ($this->sections as $section) {
+            foreach ($section['pages'] as $page) {
+                if ($title === $page->title) {
+                    return $section['section'];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Output the navigation data
      *
      * @return array The method returns the navigation data

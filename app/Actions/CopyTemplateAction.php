@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Contracts\ActionInterface;
+use App\Support\Reflection;
 use Illuminate\Support\Facades\File;
 use InvalidArgumentException;
 
@@ -32,10 +33,13 @@ class CopyTemplateAction implements ActionInterface
      */
     public function execute(): int|bool
     {
-        $path = base_path('templates'.DIRECTORY_SEPARATOR.$this->template);
+        $driver = Reflection::driver($this->template);
 
-        assert(File::exists($path), new InvalidArgumentException(basename($path).' template does not exist'));
+        $baseBath = $driver->getTemplateLocation()->toDir();
 
-        return File::copyDirectory($path, public_path());
+        assert(File::exists($baseBath), new InvalidArgumentException(basename($baseBath).' template does not exist'));
+
+        return File::copyDirectory($baseBath, public_path());
+
     }
 }
