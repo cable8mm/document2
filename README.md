@@ -38,9 +38,7 @@ Three official three templates are available. We can introduce them for creating
 Select your template:
 
 ```shell
-git clone https://github.com/cable8mm/laravel-theme templates/
-
-./document2 template laravel
+bin/install-theme.sh https://github.com/cable8mm/laravel-theme
 ```
 
 And clone the documentation files:
