@@ -23,16 +23,16 @@ class DefaultCommand extends Command
      * @var string
      */
     protected $signature = 'default
-                            {--dir= : Specify the path for the markdown documentation.}
+                            {--d|dir= : Specify the path for the markdown documentation.}
+                            {--b|branch= : The branch or version of markdown}
+                            {--f|filename= : The markdown filename}
                             {--template= : Specify the template name for generating HTML files. View all files within the `templates` folder.}
                             {--publish_path= : Specify the folder where HTML files will be generated.}
                             {--default_version= : Specify the default version of the documentation. This version will be displayed when the root domain is visited.}
                             {--default_doc= : Specify the default documentation. This documentation will be displayed when the root documentation path is visited.}
                             {--versions= : Specify all documentation versions. These must exactly match the Git branch names.}
                             {--app_url= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
-                            {--original_url= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}
-                            {--b|branch= : The branch or version of markdown}
-                            {--f|filename= : The markdown filename}';
+                            {--original_url= : Set the current domain link to another website, such as `/api/master`, rather than a documentation.}';
 
     /**
      * The description of the command.
