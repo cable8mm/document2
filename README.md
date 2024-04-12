@@ -54,8 +54,8 @@ Finally, run the following command to generate the static htmls
 ./document2
 # Generate the static html files into the `public` folder
 
-./document2 -d docs -b 7.x -f artisan.md
-# Generate the static html file of directory `docs`, branch `7.x` and filename `artisan.md`
+./document2 -d docs -b 10.x -f artisan.md
+# Generate the static html file of directory `docs`, branch `10.x` and filename `artisan.md`
 ```
 
 If Laravel Valet or Laravel Herd has been installed, you can visit https://document2.test.
