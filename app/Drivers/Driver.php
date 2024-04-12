@@ -6,6 +6,7 @@ use App\Contracts\DriverInterface;
 use App\Contracts\Htmlable;
 use App\Contracts\Pathable;
 use App\Support\Config;
+use App\Support\Path;
 use App\Types\NavCollection;
 use App\Types\PathString;
 
@@ -76,5 +77,25 @@ abstract class Driver implements DriverInterface
                 return basename($item);
             })
             ->toArray();
+    }
+
+    /**
+     * Get the path to the template
+     *
+     * @return \App\Contracts\Pathable The method returns the path to the template
+     */
+    public static function getTemplatePath(): Pathable
+    {
+        return new PathString(base_path(Config::get('template_path')));
+    }
+
+    /**
+     * Get the path to the location
+     *
+     * @return \App\Contracts\Pathable The method returns the location to the template
+     */
+    public static function getTemplateLocation(): Pathable
+    {
+        return Path::template();
     }
 }

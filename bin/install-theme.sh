@@ -10,12 +10,13 @@ fi
 url=$1
 
 theme=${url##*/}
+theme=${theme/-theme}
 
 cd templates
 
 echo "Cloning theme"
 
-git clone --single-branch $url.git
+git clone --single-branch $url.git $theme
 
 cd $theme
 
@@ -29,6 +30,6 @@ npm run build
 
 cd ../../
 
-./document2 template laravel
+./document2 template $theme
 
 echo "Completed building $theme theme"

@@ -13,6 +13,11 @@ return [
     'template' => env('TEMPLATE', 'laravel'),
 
     /**
+     * Specify the template name for generating HTML files. View all files within the `templates` folder.
+     */
+    'template_path' => env('TEMPLATE_PATH', 'templates'),
+
+    /**
      * Specify the folder where HTML files will be generated.
      */
     'publish_path' => env('PUBLISH_PATH', 'public'),

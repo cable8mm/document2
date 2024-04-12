@@ -75,4 +75,18 @@ interface DriverInterface
      * @return string[] The documentation filenames for the specific version
      */
     public static function glob(string $path): array;
+
+    /**
+     * Get the path to the template file
+     *
+     * @return Pathable The method returns the path to the template
+     */
+    public static function getTemplatePath(): Pathable;
+
+    /**
+     * Get the location to the template file
+     *
+     * @return Pathable The method returns the location to the template
+     */
+    public static function getTemplateLocation(): Pathable;
 }
