@@ -1,5 +1,16 @@
 # Release Notes
 
+## v0.4.1 - 2024-04-12
+
+### What's Changed
+
+* Add a Tailwindcss template by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/20
+* Separate from templates to another repo by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/21
+* Fix a replacing navigation bug by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/22
+* Fix typo in the README by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/document2/pull/23
+
+**Full Changelog**: https://github.com/cable8mm/document2/compare/v0.4.0...v0.4.1
+
 ## v0.4.0 - 2024-04-07
 
 ### What's Changed
